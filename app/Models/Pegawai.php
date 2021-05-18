@@ -10,6 +10,7 @@ class Pegawai extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table ='pegawai';
     protected $fillable = [
         'user_id','nip','nik','nama','golongan','jabatan_id','pendidikan','alamat','no_hp','tahun_diangkat','tahun_menjabat'
     ];

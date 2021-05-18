@@ -10,6 +10,7 @@ class Jabatan extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table ='jabatan';
     protected $fillable = [
         'nama','deskripsi'
     ];

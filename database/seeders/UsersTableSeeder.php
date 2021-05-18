@@ -17,12 +17,12 @@ class UsersTableSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'Me Gilang R',
+                'nama' => 'Me Gilang R',
                 'email' => 'megilangr1@mail.com',
                 'password' => Hash::make('nanozero1'),
             ],
             [
-                'name' => 'Admin',
+                'nama' => 'Admin',
                 'email' => 'admin@mail.com',
                 'password' => Hash::make('admin'),
             ],
