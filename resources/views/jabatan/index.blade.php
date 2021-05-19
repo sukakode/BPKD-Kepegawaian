@@ -19,25 +19,39 @@
                             <th>NO.</th>
                             <th>NAMA</th>
                             <th>DESKRIPSI.</th>
-                            <th>AKSI.</th>
+                            <th class="text-center">AKSI</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        @foreach ($data as $item)
+                        @forelse ($data as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->deskripsi }}</td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-warning">
-                                        Edit Data
-                                    </button>
+                                <td class="text-center">
+                                    <div class="btn-group">
+                                        <form action="{{ route('jabatan.destroy', $item->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
 
-                                    <button type="submit" class="btn btn-sm btn-danger">Hapus Data</button>
+                                            <a href="{{ route('jabatan.edit', $item->id) }}" class="btn btn-outline-info btn-sm">
+                                                Edit Data
+                                            </a>
+
+                                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                Hapus Data
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr class="text-center">
+                                <td class="text-danger font-italic" colspan="4">Belum ada Data jabatan !</td>
+                            </tr>
+                        @endforelse
+                           
                     </tbody>
                 </table>
             </div>

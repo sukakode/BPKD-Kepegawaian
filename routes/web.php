@@ -26,4 +26,4 @@ Auth::routes();
 
 Route::get('/home', [$loc . MainController::class, 'index'])->name('main');
 Route::resource('jabatan', $loc . JabatanController::class);
-Route::resource('data-pengguna', $loc . PegawaiController::class);
+Route::resource('data-pegawai', $loc . PegawaiController::class);

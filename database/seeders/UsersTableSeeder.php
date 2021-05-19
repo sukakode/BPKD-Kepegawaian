@@ -17,11 +17,13 @@ class UsersTableSeeder extends Seeder
     {
         $data = [
             [
+                'pegawai_id' => '1',
                 'nama' => 'Me Gilang R',
                 'email' => 'megilangr1@mail.com',
                 'password' => Hash::make('nanozero1'),
             ],
             [
+                'pegawai_id' => '2',
                 'nama' => 'Admin',
                 'email' => 'admin@mail.com',
                 'password' => Hash::make('admin'),
@@ -32,8 +34,8 @@ class UsersTableSeeder extends Seeder
             foreach ($data as $key => $value) {
                 $user = User::firstOrCreate($value);
             }
-        } catch (\Throwable $th) {
-            //throw $th;
+        } catch (\Exception $e) {
+            dd($e);
         }
     }
 }

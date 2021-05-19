@@ -10,8 +10,6 @@ class CreatePegawaiTable extends Migration
     {
         Schema::create('pegawai', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('user');
             $table->string('nip', 18);
             $table->string('nik', 16);
             $table->string('nama', 35);

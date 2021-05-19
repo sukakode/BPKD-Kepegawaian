@@ -5,10 +5,10 @@
         <div class="card card-outline card-success">
             <div class="card-header">
                 <h4 class="card-title">
-                    Data Pengguna
+                    Data Pegawai
                 </h4>
                 <div class="card-tools">
-                    <a href="{{ route('data-pengguna.create') }}" class="btn btn-success btn-xs">Tambah Data Pengguna</a>
+                    <a href="{{ route('data-pegawai.create') }}" class="btn btn-success btn-xs">Tambah Data Pegawai</a>
                 </div>
             </div>
             <div class="card-body p-0">
