@@ -22,7 +22,7 @@
       </a>
     </li> 
     <li class="nav-item">
-      <a href="{{ route('data-pegawai.index') }}" class="nav-link">
+      <a href="{{ route('pegawai.index') }}" class="nav-link">
         <i class="fas fa-users nav-icon"></i>
         <p>Data Pegawai</p>
       </a>

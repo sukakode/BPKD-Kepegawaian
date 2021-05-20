@@ -51,7 +51,6 @@
                                 <td class="text-danger font-italic" colspan="4">Belum ada Data jabatan !</td>
                             </tr>
                         @endforelse
-                           
                     </tbody>
                 </table>
             </div>

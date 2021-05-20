@@ -14,4 +14,14 @@ class Pegawai extends Model
     protected $fillable = [
         'user_id','nip','nik','nama','golongan','jabatan_id','pendidikan','alamat','no_hp','tahun_diangkat','tahun_menjabat'
     ];
+
+    public function jabatan()
+    {
+        return $this->belongsTo('App\Models\Jabatan', 'jabatan_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->hasOne('App\Models\User', 'pegawai_id', 'id');
+    }
 }

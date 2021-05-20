@@ -20,14 +20,19 @@
                         <div class="form-group">
                             <label for="nama" class="font-weight-normal">NAMA : </label>
                             <input type="text" name="nama" class="form-control {{ $errors->has('nama') ? 'is-invalid':'' }}" value="{{ $jabatan->nama }}" placeholder="Masukkan Nama..." required>
+                            <span class="invalid-feedback">
+                                {{ $errors->first('nama') }}
+                            </span>
                         </div>
                     </div>
                     <div class="col-md-8">
                         <div class="form-group">
                             <label for="deskripsi" class="font-weight-normal">DESKRIPSI : </label>
-                            <textarea class="form-control {{ $errors->has('nama') ? 'is-invalid':'' }}" value="{{ $jabatan->deskripsi }}" name="deskripsi" value="{{ $jabatan->nama }}" id="deskripsi" rows="1" placeholder="Masukkan Deskripsi..."></textarea>
+                            <textarea class="form-control {{ $errors->has('deskripsi') ? 'is-invalid':'' }}" value="{{ $jabatan->deskripsi }}" name="deskripsi" id="deskripsi" rows="1" placeholder="Masukkan Deskripsi...">{{ $jabatan->nama }}</textarea>
+                            <span class="invalid-feedback">
+                                {{ $errors->first('deskripsi') }}
+                            </span>
                         </div>
-                        
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">

@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jabatan;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class JabatanController extends Controller
 {
     public function index()
     {
-        $data = Jabatan::orderBy('nama','ASC')->get();
+        $data = Jabatan::orderBy('created_at','DESC')->get();
         return view('jabatan.index', compact('data'));
     }
 
@@ -60,7 +61,9 @@ class JabatanController extends Controller
 
         try {
             $jabatan = Jabatan::findOrFail($id);
+            $user = User::findOrFail($jabatan->id);
             $jabatan->update($request->except('_token', '_method'));
+            $user->update($request->except('_token', '_method'));
 
             return redirect(route('jabatan.index'));
         } catch (\Exception $e) {

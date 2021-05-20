@@ -31,6 +31,14 @@
         <div class="info">
           <a href="#" class="d-block">{{ ucfirst(auth()->user()->nama) }}</a>
         </div>
+        <div class="btn">
+          <a href="{{ route('logout') }}" class="btn btn-block btn-outline-secondary btn-xs" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            Logout
+          </a>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+        </div>
       </div> 
 
       <nav class="mt-2 ">
