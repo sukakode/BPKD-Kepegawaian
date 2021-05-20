@@ -28,7 +28,7 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <label for="deskripsi" class="font-weight-normal">DESKRIPSI : </label>
-                            <textarea class="form-control {{ $errors->has('deskripsi') ? 'is-invalid':'' }}" value="{{ $jabatan->deskripsi }}" name="deskripsi" id="deskripsi" rows="1" placeholder="Masukkan Deskripsi...">{{ $jabatan->nama }}</textarea>
+                            <textarea class="form-control {{ $errors->has('deskripsi') ? 'is-invalid':'' }}" value="{{ $jabatan->deskripsi }}" name="deskripsi" id="deskripsi" rows="1" placeholder="Masukkan Deskripsi...">{{ $jabatan->deskripsi }}</textarea>
                             <span class="invalid-feedback">
                                 {{ $errors->first('deskripsi') }}
                             </span>

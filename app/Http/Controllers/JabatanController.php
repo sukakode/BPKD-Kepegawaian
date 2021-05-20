@@ -61,9 +61,7 @@ class JabatanController extends Controller
 
         try {
             $jabatan = Jabatan::findOrFail($id);
-            $user = User::findOrFail($jabatan->id);
             $jabatan->update($request->except('_token', '_method'));
-            $user->update($request->except('_token', '_method'));
 
             return redirect(route('jabatan.index'));
         } catch (\Exception $e) {
