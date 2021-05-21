@@ -22,8 +22,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::get('/home', [$loc . MainController::class, 'index'])->name('main');
 Route::resource('jabatan', $loc . JabatanController::class);
 Route::resource('pegawai', $loc . PegawaiController::class);
+Route::resource('user', $loc . UserController::class);
+
+// Route SoftDeletes
+Route::put('/jabatan/{id}/restore', [$loc . JabatanController::class, 'restore'])->name('jabatan.restore');
+Route::put('/pegawai/{id}/restore', [$loc . PegawaiController::class, 'restore'])->name('pegawai.restore');
+Route::delete('/jabatan/{id}/force', [$loc . JabatanController::class, 'forceDelete'])->name('jabatan.force');
+Route::delete('/pegawai/{id}/force', [$loc . PegawaiController::class, 'forceDelete'])->name('pegawai.force');
+

@@ -14,4 +14,9 @@ class Jabatan extends Model
     protected $fillable = [
         'nama','deskripsi'
     ];
+
+    public function pegawai()
+    {
+        return $this->hasMany('App\Models\Pegawai', 'jabatan_id', 'id');
+    }
 }

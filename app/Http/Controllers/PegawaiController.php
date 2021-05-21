@@ -12,8 +12,9 @@ class PegawaiController extends Controller
 {
     public function index()
     {
-        $pegawai = Pegawai::orderBy('created_at', 'DESC')->get();
-        return view('pegawai.index', compact('pegawai'));
+        $pegawai = Pegawai::orderBy('created_at', 'DESC')->orderBy('updated_at', 'DESC')->get();
+        $trashed = Pegawai::onlyTrashed()->orderBy('deleted_at', 'DESC')->get();
+        return view('pegawai.index', compact('pegawai', 'trashed'));
     }
 
     public function create()
@@ -133,7 +134,38 @@ class PegawaiController extends Controller
         try {
             $pegawai = Pegawai::findOrFail($id);
             $pegawai->delete();
+            $pegawai->user()->delete();
 
+            return redirect(route('pegawai.index'));
+        } catch (\Exception $e) {
+            dd($e);
+        }
+    }
+
+    public function restore($id)
+    {
+        try {
+            $pegawai = Pegawai::onlyTrashed()->findOrFail($id);
+            $pegawai->restore();
+            $pegawai->user()->restore();
+
+            return redirect(route('pegawai.index'));
+        } catch (\Exception $e) {
+            dd($e);
+        }
+    }
+
+    public function forceDelete($id)
+    {
+        try {
+            $pegawai = Pegawai::onlyTrashed()->findOrFail($id);
+            $count = $pegawai->user;
+            if ($count != null) {
+                $count->forceDelete();
+            }
+            $pegawai->forceDelete();
+
+            session()->flash('error', 'Data Pegawai di-Hapus Permanen !');
             return redirect(route('pegawai.index'));
         } catch (\Exception $e) {
             dd($e);

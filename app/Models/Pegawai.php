@@ -17,11 +17,11 @@ class Pegawai extends Model
 
     public function jabatan()
     {
-        return $this->belongsTo('App\Models\Jabatan', 'jabatan_id', 'id');
+        return $this->belongsTo('App\Models\Jabatan', 'jabatan_id', 'id')->withTrashed();
     }
 
     public function user()
     {
-        return $this->hasOne('App\Models\User', 'pegawai_id', 'id');
+        return $this->hasOne('App\Models\User', 'pegawai_id', 'id')->withTrashed();
     }
 }

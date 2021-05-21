@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('user', function (Blueprint $table) {
@@ -19,18 +14,13 @@ class CreateUsersTable extends Migration
             $table->foreign('pegawai_id')->references('id')->on('pegawai');
             $table->string('nama');
             $table->string('email')->unique();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('users');

@@ -1,9 +1,9 @@
 <li class="nav-item">
   <a href="#" class="nav-link active">
-    <i class="nav-icon fas fa-home"></i>
-    <p>
-      Halaman Utama
-    </p>
+  <i class="nav-icon fas fa-home"></i>
+  <p>
+    Halaman Utama
+  </p>
   </a>
 </li>
 <li class="nav-item">
@@ -17,10 +17,16 @@
   <ul class="nav nav-treeview">
     <li class="nav-item">
       <a href="{{ route('jabatan.index') }}" class="nav-link">
-        <i class="fas fa-edit nav-icon"></i>
+        <i class="fas fa-user-tie nav-icon"></i>
         <p>Data Jabatan</p>
       </a>
-    </li> 
+    </li>
+    <li class="nav-item">
+      <a href="{{ route('user.index') }}" class="nav-link">
+        <i class="fas fa-user-cog nav-icon"></i>
+        <p>Data User</p>
+      </a>
+    </li>
     <li class="nav-item">
       <a href="{{ route('pegawai.index') }}" class="nav-link">
         <i class="fas fa-users nav-icon"></i>

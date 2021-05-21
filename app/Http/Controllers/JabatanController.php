@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jabatan;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class JabatanController extends Controller
 {
     public function index()
     {
-        $data = Jabatan::orderBy('created_at','DESC')->get();
-        return view('jabatan.index', compact('data'));
+        $data = Jabatan::orderBy('created_at','DESC')->orderBy('updated_at', 'DESC')->get();
+        $trashed = Jabatan::onlyTrashed()->orderBy('deleted_at', 'DESC')->get();
+
+        return view('jabatan.index', compact('data', 'trashed'));
     }
 
     public function create()
@@ -74,6 +75,38 @@ class JabatanController extends Controller
         try {
             $jabatan = Jabatan::findOrFail($id);
             $jabatan->delete();
+
+            return redirect(route('jabatan.index'));
+        } catch (\Exception $e) {
+            dd($e);
+        }
+    }
+
+    public function restore($id)
+    {
+        try {
+            $jabatan = Jabatan::onlyTrashed()->findOrFail($id);
+            $jabatan->restore();
+
+            return redirect(route('jabatan.index'));
+        } catch (\Exception $e) {
+            dd($e);
+        }
+    }
+
+    public function forceDelete($id)
+    {
+        try {
+            $jabatan = Jabatan::onlyTrashed()->findOrFail($id);
+            $count = $jabatan->pegawai()->count();
+
+            if ($count > 0) {
+                session()->flash('error', 'Data Memiliki Relasi ke Data Pegawai !');
+                session()->flash('warning', 'Gagal Menghapus Data !');
+            } else {
+                session()->flash('error', 'Data Jabatan di-Hapus Permanen !');
+                $jabatan->forceDelete();
+            }
 
             return redirect(route('jabatan.index'));
         } catch (\Exception $e) {
