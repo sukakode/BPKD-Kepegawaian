@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PegawaiStore;
+use App\Http\Requests\PegawaiUpdate;
 use App\Models\Jabatan;
 use App\Models\Pegawai;
 use App\Models\User;
@@ -43,16 +44,19 @@ class PegawaiController extends Controller
                 'tahun_menjabat' => $pesan->tahun_menjabat
             ]);
 
-            $user = User::firstOrCreate([
-                'pegawai_id' => $pegawai->id,
-                'nama'  => $pegawai->nama,
-                'email' => $pesan->email,
-                'password' => Hash::make($pesan->password)
-            ]);
+            if (!empty($pesan->email) && !empty($pesan->password)) {
+                $user = User::firstOrCreate([
+                    'pegawai_id' => $pegawai->id,
+                    'nama'  => $pegawai->nama,
+                    'email' => $pesan->email,
+                    'password' => Hash::make($pesan->password)
+                ]);
+            }
 
             session()->flash('success', 'Data Pegawai Baru Telah di-Tambahkan !');
             return redirect(route('pegawai.index'));
         } catch (\Exception $e) {
+            dd($e);
             session()->flash('error', 'Terjadi Kesalahan, Segera Hubungi Administrator !');
             return redirect(route('pegawai.create'));
         }
@@ -71,44 +75,31 @@ class PegawaiController extends Controller
         
     }
 
-    public function update(Request $request, Pegawai $pegawai)
+    public function update(PegawaiUpdate $pesan, Pegawai $pegawai)
     {
-        $this->validate($request, [
-            'nip' => 'required|numeric|digits:18|unique:pegawai,nip,'.$pegawai->id,
-            'nik' => 'required|numeric|digits:16|unique:pegawai,nik,'.$pegawai->id,
-            'nama' => 'required|string|max:35',
-            'golongan' => 'required|string|max:5',
-            'jabatan_id' => 'required|numeric|exists:jabatan,id',
-            'pendidikan' => 'required|string|max:5',
-            'alamat' => 'required|string',
-            'no_hp' => 'required|numeric|digits_between:0,14',
-            'tahun_diangkat' => 'required|date',
-            'tahun_menjabat' => 'required|date',
-            'email' => 'required|email|confirmed|unique:user,email,'.$pegawai->user->id,
-            'password' => 'nullable|string|confirmed'
-        ]);
-
         try {
-            $pegawai->update($request->except('_token', '_method'));
+            $pegawai->update($pesan->except('_token', '_method'));
 
-            $password = Hash::make($request->password);
+            $password = Hash::make($pesan->password);
             $check = Hash::check($pegawai->password, $password);
             
             if ($check) {
-                $request->merge([
+                $pesan->merge([
                     'password' => $pegawai->password
                 ]);
             } else {
-                $request->merge([
-                    'password' => Hash::make($request->$password)
+                $pesan->merge([
+                    'password' => Hash::make($pesan->$password)
                 ]);
             }
 
-            $pegawai->user->update([
-                'nama' => $request->nama,
-                'email' => $request->email,
-                'password' => $request->password
-            ]);
+            if (!empty('email') && !empty('password')) {
+                $pegawai->user->update([
+                    'nama' => $pesan->nama,
+                    'email' => $pesan->email,
+                    'password' => $pesan->password
+                ]);
+            }
 
             session()->flash('success', 'Data Berhasil di-Update !');
             return redirect(route('pegawai.edit'));
@@ -123,7 +114,10 @@ class PegawaiController extends Controller
         try {
             $pegawai = Pegawai::findOrFail($id);
             $pegawai->delete();
-            $pegawai->user()->delete();
+
+            if (isset($pegawai->user)) {
+                $pegawai->user()->delete();
+            }
 
             session()->flash('success', 'Data Berhasil di-Pulihkan !');
             return redirect(route('pegawai.index'));

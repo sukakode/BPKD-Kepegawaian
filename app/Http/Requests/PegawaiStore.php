@@ -27,6 +27,12 @@ class PegawaiStore extends FormRequest
             'email' => 'required|email|confirmed|unique:user,email',
             'password' => 'required|string|confirmed'
         ];
+        if (!empty('email') && !empty('password')) {
+            return [
+                'email' => 'required|email|confirmed|unique:user,email',
+                'password' => 'required|string|confirmed'
+            ];
+        }
     }
     
     public function messages()

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Pegawai;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PegawaiUpdate extends FormRequest
@@ -11,11 +12,11 @@ class PegawaiUpdate extends FormRequest
         return true;
     }
 
-    public function rules()
+    public function rules(Pegawai $model)
     {
         return [
-            'nip' => 'required|numeric|digits:18|unique:pegawai,nip',
-            'nik' => 'required|numeric|digits:16|unique:pegawai,nik',
+            'nip' => 'required|numeric|digits:18|unique:pegawai,nip,'.$model->id,
+            'nik' => 'required|numeric|digits:16|unique:pegawai,nik,'.$model->id,
             'nama' => 'required|string|max:35',
             'golongan' => 'required|string|max:5',
             'jabatan_id' => 'required|numeric|exists:jabatan,id',
@@ -24,8 +25,8 @@ class PegawaiUpdate extends FormRequest
             'no_hp' => 'required|numeric|digits_between:0,14',
             'tahun_diangkat' => 'required|date',
             'tahun_menjabat' => 'required|date',
-            'email' => 'required|email|confirmed|unique:user,email',
-            'password' => 'required|string|confirmed'
+            'email' => 'required|email|confirmed|unique:user,email,'.$model->user->id,
+            'password' => 'nullable|string|confirmed'
         ];
     }
 

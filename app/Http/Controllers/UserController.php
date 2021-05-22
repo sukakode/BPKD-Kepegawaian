@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserStore;
+use App\Http\Requests\UserUpdate;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -34,7 +35,7 @@ class UserController extends Controller
         //
     }
 
-    public function update(UserStore $pesan, $id)
+    public function update(UserUpdate $pesan, $id)
     {
         //
     }
