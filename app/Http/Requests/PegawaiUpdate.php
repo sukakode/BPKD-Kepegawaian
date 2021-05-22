@@ -12,11 +12,11 @@ class PegawaiUpdate extends FormRequest
         return true;
     }
 
-    public function rules(Pegawai $model)
+    public function rules()
     {
         return [
-            'nip' => 'required|numeric|digits:18|unique:pegawai,nip,'.$model->id,
-            'nik' => 'required|numeric|digits:16|unique:pegawai,nik,'.$model->id,
+            'nip' => 'required|numeric|digits:18|unique:pegawai,nip,'.$this->pegawai->id,
+            'nik' => 'required|numeric|digits:16|unique:pegawai,nik,'.$this->pegawai->id,
             'nama' => 'required|string|max:35',
             'golongan' => 'required|string|max:5',
             'jabatan_id' => 'required|numeric|exists:jabatan,id',
@@ -25,8 +25,7 @@ class PegawaiUpdate extends FormRequest
             'no_hp' => 'required|numeric|digits_between:0,14',
             'tahun_diangkat' => 'required|date',
             'tahun_menjabat' => 'required|date',
-            'email' => 'required|email|confirmed|unique:user,email,'.$model->user->id,
-            'password' => 'nullable|string|confirmed'
+            
         ];
     }
 

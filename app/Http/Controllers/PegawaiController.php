@@ -77,6 +77,18 @@ class PegawaiController extends Controller
 
     public function update(PegawaiUpdate $pesan, Pegawai $pegawai)
     {
+        if (!empty($pegawai->user)) {
+            $this->validate($pesan, [
+                'email' => 'nullable|email|confirmed|unique:user,email,'.$pegawai->user->id,
+                'password' => 'nullable|string|confirmed'
+            ]);
+        } else {
+            $this->validate($pesan, [
+                'email' => 'nullable|email|confirmed|unique:user,email',
+                'password' => 'nullable|string|confirmed'
+            ]);
+        }
+        
         try {
             $pegawai->update($pesan->except('_token', '_method'));
 
@@ -93,17 +105,29 @@ class PegawaiController extends Controller
                 ]);
             }
 
-            if (!empty('email') && !empty('password')) {
-                $pegawai->user->update([
-                    'nama' => $pesan->nama,
-                    'email' => $pesan->email,
-                    'password' => $pesan->password
-                ]);
+            if ($pegawai->user != NULL) {
+                if (!empty($pesan->email) && !empty($pesan->email)) {
+                    $pegawai->user->update([
+                        'nama' => $pesan->nama,
+                        'email' => $pesan->email,
+                        'password' => $pesan->password
+                    ]);
+                }
+            } else {
+                if (!empty($pesan->email) && !empty($pesan->email)) {
+                    $user = User::firstOrCreate([
+                        'pegawai_id' => $pegawai->id,
+                        'nama' => $pesan->nama,
+                        'email' => $pesan->email,
+                        'password' => $pesan->password
+                    ]);
+                }
             }
 
             session()->flash('success', 'Data Berhasil di-Update !');
-            return redirect(route('pegawai.edit'));
+            return redirect(route('pegawai.index'));
         } catch (\Exception $e) {
+            dd($e);
             session()->flash('error', 'Terjadi Kesalahan Silahkan Hubungi Admin !');
             return redirect('pegawai.edit');
         }

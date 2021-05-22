@@ -120,14 +120,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="email" class="font-weight-normal">E-mail Pegawai : </label>
-                                    <input type="email" class="form-control {{ $errors->has('email') ? 'is-invalid':'' }}" value="{{ $pegawai->user->email }}" name="email" id="email" placeholder="Masukan E-Mail Pegawai">
+                                    <input type="email" class="form-control {{ $errors->has('email') ? 'is-invalid':'' }}" value="{{ empty($pegawai->user) ? '': $pegawai->user->email }}" name="email" id="email" placeholder="Masukan E-Mail Pegawai">
                                     <span class="invalid-feedback">
                                         {{ $errors->first('email') }}
                                     </span>
                                 </div>
                                 <div class="form-group">
                                     <label for="email_confirmation" class="font-weight-normal">Tuliskan Ulang E-mail Pegawai: </label>
-                                    <input type="email_confirmation" class="form-control {{ $errors->has('email') ? 'is-invalid':'' }}" value="{{ $pegawai->user->email }}" name="email_confirmation" id="email_confirmation" placeholder="Masukan E-Mail Pegawai">
+                                    <input type="email_confirmation" class="form-control {{ $errors->has('email') ? 'is-invalid':'' }}" value="{{ empty($pegawai->user) ? '': $pegawai->user->email }}" name="email_confirmation" id="email_confirmation" placeholder="Masukan E-Mail Pegawai">
                                 </div>
                             </div>
                             <div class="col-md-6">
