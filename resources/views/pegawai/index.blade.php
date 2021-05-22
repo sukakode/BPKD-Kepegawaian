@@ -43,13 +43,18 @@
                                                 @csrf
                                                 @method('DELETE')
 
-                                                <a href="{{ route('pegawai.edit', $item->id) }}" class="btn btn-outline-info btn-sm">
-                                                    Edit Data
-                                                </a>
-
-                                                <button type="submit" class="btn btn-outline-danger btn-sm">
-                                                    Hapus Data
-                                                </button>
+                                                @if (auth()->user()->id == $item->id)
+                                                    <button type="submit" class="btn btn-secondary btn-sm" disabled>
+                                                        Tidak Ada Aksi
+                                                    </button>
+                                                @else
+                                                    <a href="{{ route('pegawai.edit', $item->id) }}" class="btn btn-outline-info btn-sm">
+                                                        Edit Data
+                                                    </a>
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                        Hapus Data
+                                                    </button>
+                                                @endif
                                             </form>
                                         </div>
                                     </td>

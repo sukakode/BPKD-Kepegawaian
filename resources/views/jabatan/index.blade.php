@@ -36,13 +36,18 @@
                                             @csrf
                                             @method('DELETE')
 
-                                            <a href="{{ route('jabatan.edit', $item->id) }}" class="btn btn-outline-info btn-sm">
-                                                Edit Data
-                                            </a>
-
-                                            <button type="submit" class="btn btn-outline-danger btn-sm">
-                                                Hapus Data
-                                            </button>
+                                            @if ($item->nama == 'Admin')
+                                                <button type="submit" class="btn btn-secondary btn-sm" disabled>
+                                                    Tidak Ada Aksi
+                                                </button>
+                                            @else
+                                                <a href="{{ route('jabatan.edit', $item->id) }}" class="btn btn-outline-info btn-sm">
+                                                    Edit Data
+                                                </a>
+                                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                    Hapus Data
+                                                </button>
+                                            @endif
                                         </form>
                                     </div>
                                 </td>
@@ -101,6 +106,7 @@
                                                 <form action="{{ route('jabatan.force', $item->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
+                                                    
                                                     <button type="submit" class="btn btn-outline-danger btn-sm">
                                                         Hapus Data Permanent
                                                     </button>

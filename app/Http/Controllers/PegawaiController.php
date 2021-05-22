@@ -6,15 +6,18 @@ use App\Models\Jabatan;
 use App\Models\Pegawai;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class PegawaiController extends Controller
 {
     public function index()
     {
-        $pegawai = Pegawai::orderBy('created_at', 'DESC')->orderBy('updated_at', 'DESC')->get();
+        $cekUser = Auth::check();
+        $pegawai = Pegawai::orderBy('jabatan_id', 'ASC')->get();
         $trashed = Pegawai::onlyTrashed()->orderBy('deleted_at', 'DESC')->get();
-        return view('pegawai.index', compact('pegawai', 'trashed'));
+        return view('pegawai.index', compact('pegawai', 'trashed', 'cekUser'));
+        
     }
 
     public function create()

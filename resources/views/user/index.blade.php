@@ -32,7 +32,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->email }}</td>
-                                <td>{{ $item->pegawai }}</td>
+                                <td>{{ $item->pegawai->jabatan_id }}</td>
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <form action="{{ route('pegawai.destroy', $item->id) }}" method="POST">
