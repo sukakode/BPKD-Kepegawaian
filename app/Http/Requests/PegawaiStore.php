@@ -24,15 +24,9 @@ class PegawaiStore extends FormRequest
             'no_hp' => 'required|numeric|digits_between:0,14',
             'tahun_diangkat' => 'required|date',
             'tahun_menjabat' => 'required|date',
-            'email' => 'required|email|confirmed|unique:user,email',
-            'password' => 'required|string|confirmed'
+            'email' => 'nullable|email|confirmed|unique:user,email',
+            'password' => 'nullable|string|confirmed'
         ];
-        if (!empty('email') && !empty('password')) {
-            return [
-                'email' => 'required|email|confirmed|unique:user,email',
-                'password' => 'required|string|confirmed'
-            ];
-        }
     }
     
     public function messages()
