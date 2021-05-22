@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\JabatanStore;
+use App\Http\Requests\JabatanUpdate;
 use App\Models\Jabatan;
-use Illuminate\Http\Request;
 
 class JabatanController extends Controller
 {
     public function index()
     {
-        $data = Jabatan::orderBy('created_at','DESC')->orderBy('updated_at', 'DESC')->get();
+        $data = Jabatan::orderBy('id','ASC')->get();
         $trashed = Jabatan::onlyTrashed()->orderBy('deleted_at', 'DESC')->get();
 
         return view('jabatan.index', compact('data', 'trashed'));
@@ -20,53 +21,44 @@ class JabatanController extends Controller
         return view('jabatan.create');
     }
 
-    public function store(Request $request)
+    public function store(JabatanStore $pesan)
     {
-        $this->validate($request, [
-            'nama' => 'required|string|max:35',
-            'deskripsi' => 'nullable|string|max:100'
-        ]);
-        
         try {
             $tambah = Jabatan::firstOrCreate([
-                'nama' => $request->nama,
-                'deskripsi' => $request->deskripsi
+                'nama' => $pesan->nama,
+                'deskripsi' => $pesan->deskripsi
             ]);
+
+            session()->flash('success', 'Data Jabatan Berhasil Ditambah !');
             return redirect(route('jabatan.index'));
         } catch (\Exception $e) {
-            dd($e);
+            session()->flash('error', 'Terjadi Kesalahan Silahkan Hubungi Admin !');
+            return redirect('jabatan.create');
         }
     }
-
-    public function show($id)
-    {
-        
-    }
-
+    
     public function edit($id)
     {
         try {
             $jabatan = Jabatan::findOrFail($id);
             return view('jabatan.edit', compact('jabatan'));
         } catch (\Exception $e) {
-            dd($e);
+            session()->flash('error', 'Terjadi Kesalahan, Segera Hubungi Administrator !');
+            return redirect(route('jabatan.index'));
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(JabatanUpdate $pesan, $id)
     {
-        $this->validate($request, [
-            'nama' => 'required|string|max:35',
-            'deskripsi' => 'nullable|string|max:100'
-        ]);
-
         try {
             $jabatan = Jabatan::findOrFail($id);
-            $jabatan->update($request->except('_token', '_method'));
+            $jabatan->update($pesan->except('_token', '_method'));
 
+            session()->flash('info', 'Data Jabatan Berhasil di-Update !');
             return redirect(route('jabatan.index'));
         } catch (\Exception $e) {
-            dd($e);
+            session()->flash('error', 'Terjadi Kesalahan Silahkan Hubungi Admin !');
+            return redirect('jabatan.edit');
         }
     }
 
@@ -76,9 +68,11 @@ class JabatanController extends Controller
             $jabatan = Jabatan::findOrFail($id);
             $jabatan->delete();
 
+            session()->flash('warning', 'Data di-Pindahkan Ke Tong Sampah !');
             return redirect(route('jabatan.index'));
         } catch (\Exception $e) {
-            dd($e);
+            session()->flash('error', 'Terjadi Kesalahan, Segera Hubungi Administrator !');
+            return redirect(route('jabatan.index'));
         }
     }
 
@@ -88,9 +82,11 @@ class JabatanController extends Controller
             $jabatan = Jabatan::onlyTrashed()->findOrFail($id);
             $jabatan->restore();
 
+            session()->flash('success', 'Data Berhasil di-Pulihkan !');
             return redirect(route('jabatan.index'));
         } catch (\Exception $e) {
-            dd($e);
+            session()->flash('error', 'Terjadi Kesalahan, Segera Hubungi Administrator !');
+            return redirect(route('jabatan.index'));
         }
     }
 
@@ -108,9 +104,11 @@ class JabatanController extends Controller
                 $jabatan->forceDelete();
             }
 
+            session()->flash('error', 'Data di-Hapus Permanent !');
             return redirect(route('jabatan.index'));
         } catch (\Exception $e) {
-            dd($e);
+            session()->flash('error', 'Terjadi Kesalahan, Segera Hubungi Administrator !');
+            return redirect(route('jabatan.index'));
         }
     }
 }

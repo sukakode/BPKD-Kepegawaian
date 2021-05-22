@@ -44,7 +44,7 @@
                                                 @method('DELETE')
 
                                                 @if (auth()->user()->id == $item->id)
-                                                    <button type="submit" class="btn btn-secondary btn-sm" disabled>
+                                                    <button type="button" class="btn btn-secondary btn-sm">
                                                         Tidak Ada Aksi
                                                     </button>
                                                 @else

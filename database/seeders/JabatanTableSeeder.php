@@ -24,7 +24,7 @@ class JabatanTableSeeder extends Seeder
                 'deskripsi' => ''
             ],
             [
-                'nama' => 'Manager',
+                'nama' => 'FO',
                 'deskripsi' => ''
             ],
             [

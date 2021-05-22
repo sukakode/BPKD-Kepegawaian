@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PegawaiStore;
 use App\Models\Jabatan;
 use App\Models\Pegawai;
 use App\Models\User;
@@ -26,53 +27,35 @@ class PegawaiController extends Controller
         return view('pegawai.create', compact('jabatan'));
     }
 
-    public function store(Request $request)
+    public function store(PegawaiStore $pesan)
     {
-        $this->validate($request, [
-            'nip' => 'required|numeric|digits:18|unique:pegawai,nip',
-            'nik' => 'required|numeric|digits:16|unique:pegawai,nik',
-            'nama' => 'required|string|max:35',
-            'golongan' => 'required|string|max:5',
-            'jabatan_id' => 'required|numeric|exists:jabatan,id',
-            'pendidikan' => 'required|string|max:5',
-            'alamat' => 'required|string',
-            'no_hp' => 'required|numeric|digits_between:0,14',
-            'tahun_diangkat' => 'required|date',
-            'tahun_menjabat' => 'required|date',
-            'email' => 'required|email|confirmed|unique:user,email',
-            'password' => 'required|string|confirmed'
-        ]);
-
         try {
             $pegawai = Pegawai::firstOrCreate([
-                'nip' => $request->nip,
-                'nik' => $request->nik,
-                'nama' => $request->nama,
-                'golongan' => $request->golongan,
-                'jabatan_id' => $request->jabatan_id,
-                'pendidikan' => $request->pendidikan,
-                'alamat' => $request->alamat,
-                'no_hp' => $request->no_hp,
-                'tahun_diangkat' => $request->tahun_diangkat,
-                'tahun_menjabat' => $request->tahun_menjabat
+                'nip' => $pesan->nip,
+                'nik' => $pesan->nik,
+                'nama' => $pesan->nama,
+                'golongan' => $pesan->golongan,
+                'jabatan_id' => $pesan->jabatan_id,
+                'pendidikan' => $pesan->pendidikan,
+                'alamat' => $pesan->alamat,
+                'no_hp' => $pesan->no_hp,
+                'tahun_diangkat' => $pesan->tahun_diangkat,
+                'tahun_menjabat' => $pesan->tahun_menjabat
             ]);
 
             $user = User::firstOrCreate([
                 'pegawai_id' => $pegawai->id,
                 'nama'  => $pegawai->nama,
-                'email' => $request->email,
-                'password' => Hash::make($request->password)
+                'email' => $pesan->email,
+                'password' => Hash::make($pesan->password)
             ]);
 
+            session()->flash('success', 'Data Pegawai Baru Telah di-Tambahkan !');
             return redirect(route('pegawai.index'));
         } catch (\Exception $e) {
-            dd($e);
+            session()->flash('error', 'Terjadi Kesalahan, Segera Hubungi Administrator !');
+            return redirect(route('pegawai.create'));
         }
-    }
-
-    public function show($id)
-    {
-        //
     }
 
     public function edit($id)
@@ -82,7 +65,8 @@ class PegawaiController extends Controller
             $jabatan = Jabatan::orderBy('nama', 'ASC')->get();
             return view('pegawai.edit', compact('pegawai', 'jabatan'));
         } catch (\Exception $e) {
-            dd($e);
+            session()->flash('error', 'Terjadi Kesalahan Silahkan Hubungi Admin !');
+            return redirect('pegawai.edit');
         }
         
     }
@@ -126,9 +110,11 @@ class PegawaiController extends Controller
                 'password' => $request->password
             ]);
 
-            return redirect(route('pegawai.index'));
+            session()->flash('success', 'Data Berhasil di-Update !');
+            return redirect(route('pegawai.edit'));
         } catch (\Exception $e) {
-            dd($e);
+            session()->flash('error', 'Terjadi Kesalahan Silahkan Hubungi Admin !');
+            return redirect('pegawai.edit');
         }
     }
 
@@ -139,9 +125,11 @@ class PegawaiController extends Controller
             $pegawai->delete();
             $pegawai->user()->delete();
 
+            session()->flash('success', 'Data Berhasil di-Pulihkan !');
             return redirect(route('pegawai.index'));
         } catch (\Exception $e) {
-            dd($e);
+            session()->flash('error', 'Terjadi Kesalahan Silahkan Hubungi Admin !');
+            return redirect('pegawai.index');
         }
     }
 
@@ -152,9 +140,11 @@ class PegawaiController extends Controller
             $pegawai->restore();
             $pegawai->user()->restore();
 
+            session()->flash('success', 'Data Berhasil di-Pulihkan !');
             return redirect(route('pegawai.index'));
         } catch (\Exception $e) {
-            dd($e);
+            session()->flash('error', 'Terjadi Kesalahan Silahkan Hubungi Admin !');
+            return redirect('pegawa.index');
         }
     }
 
@@ -171,7 +161,8 @@ class PegawaiController extends Controller
             session()->flash('error', 'Data Pegawai di-Hapus Permanen !');
             return redirect(route('pegawai.index'));
         } catch (\Exception $e) {
-            dd($e);
+            session()->flash('error', 'Terjadi Kesalahan Silahkan Hubungi Admin !');
+            return redirect('pegawai.index');
         }
     }
 }

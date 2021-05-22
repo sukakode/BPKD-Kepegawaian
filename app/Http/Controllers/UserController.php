@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserStore;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,7 @@ class UserController extends Controller
         //
     }
 
-    public function store(Request $request)
+    public function store(UserStore $pesan)
     {
         //
     }
@@ -33,7 +34,7 @@ class UserController extends Controller
         //
     }
 
-    public function update(Request $request, $id)
+    public function update(UserStore $pesan, $id)
     {
         //
     }
