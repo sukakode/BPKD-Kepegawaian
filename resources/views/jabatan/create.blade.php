@@ -5,10 +5,20 @@
         <div class="card card-outline card-info">
             <div class="card-header">
                 <h4 class="card-title">
-                    Tambah Data Jabatan
+                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Optional">
+                        <button type="button" id="popover-important" class="btn btn-danger" data-container="body" data-triger="hover" data-toggle="popover" data-placement="right" title="Perhatian !" data-content="Data Jabatan Wajib di-Isi Dengan Sah & Valid !" readonly>
+                            <i class="fas fa-info-circle" style="pointer-events: none;" type="button" disabled></i>
+                        </button>&ensp;
+                    </span>
+                    Tambah Data Jabatan : &ensp;
                 </h4>
                 <div class="card-tools">
-                    <a href="{{ route('jabatan.index') }}" class="btn btn-warning btn-xs">Kembali</a>
+                    <a href="{{ route('jabatan.index') }}" class="btn btn-warning btn-xs">
+                        <span>
+                            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        </span>&ensp;
+                        Kembali
+                    </a>
                 </div>
             </div>
             <div class="card-body">
@@ -36,12 +46,22 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <button type="submit" class="btn btn-success btn-block">Simpan Data</button>
+                                <button type="submit" class="btn btn-success btn-block">
+                                    <span>
+                                        <i class="fas fa-plus"></i>
+                                    </span>&ensp;
+                                    Simpan Data                                    
+                                </button>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <button type="submit" class="btn btn-danger btn-block">Reset Input</button>
+                                <button type="submit" class="btn btn-danger btn-block">
+                                    <span>
+                                        <i class="fas fa-undo"></i>
+                                    </span>&ensp;
+                                    Reset Input                                    
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -49,4 +69,14 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        });
+
+        $("#popover-important").popover({ trigger: "hover" });
+    </script>
 @endsection

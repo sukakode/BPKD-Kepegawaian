@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserStore;
 use App\Http\Requests\UserUpdate;
+use App\Models\Jabatan;
 use App\Models\User;
 use Illuminate\Http\Request;
 

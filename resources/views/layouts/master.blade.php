@@ -8,7 +8,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <link rel="stylesheet" href="{{ asset('assets') }}/plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="{{ asset('assets') }}/dist/css/adminlte.min.css">
-
+  
+  @livewireStyles
   @yield('css')
   @stack('css')
 </head>
@@ -33,6 +34,7 @@
         </div>
         <div class="btn">
           <a href="{{ route('logout') }}" class="btn btn-block btn-outline-secondary btn-xs" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <span><i class="fas fa-power-off"></i></span>&ensp;
             Logout
           </a>
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -78,15 +80,15 @@
   <aside class="control-sidebar control-sidebar-dark">
     <div class="p-3">
       <h5>{{ env('APP_DESC') }}</h5>
-      <p>By. Me Gilang R</p>
+      <p>By. Me Maess</p>
     </div>
   </aside>
 
   <footer class="main-footer">
     <div class="float-right d-none d-sm-inline">
-      Anything you want
+      What you need, it's here folks
     </div>
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2021-<script>document.write(new Date().getFullYear())</script>&ensp;<a href="{{ url('http://localhost') }}">Sistem Informasi Kepegawaian - BPKPD </a>&nbsp;</strong> All rights reserved.
   </footer>
 </div>
 
@@ -94,6 +96,11 @@
 <script src="{{ asset('assets') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('assets') }}/dist/js/adminlte.min.js"></script>
 
+<script type="text/javascript">
+  document.write(new Date(),getFullyear())
+</script>
+
+@livewireScripts
 @yield('script')
 @stack('script')
 </body>

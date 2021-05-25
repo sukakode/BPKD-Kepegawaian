@@ -9,9 +9,13 @@
                 </h4>
                 <div class="card-tools">
                     <button type="button" data-toggle="modal" data-target="#pegawaiTrashedModal" class="btn btn-danger btn-xs">
-                       Data Terhapus
+                       <span><i class="fas fa-trash"></i></span>&ensp;
+                        Data Terhapus
                     </button>
-                    <a href="{{ route('pegawai.create') }}" class="btn btn-success btn-xs">Tambah Data Pegawai</a>
+                    <a href="{{ route('pegawai.create') }}" class="btn btn-success btn-xs">
+                       <span><i class="fas fa-plus"></i></span>&ensp;
+                        Tambah Data Pegawai
+                    </a>
                 </div>
             </div>
             <div class="card-body p-0">
@@ -44,15 +48,19 @@
                                                 @method('DELETE')
 
                                                 @if (auth()->user()->id == $item->id)
-                                                    <button type="button" class="btn btn-secondary btn-sm">
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm">
+                                                        <span><i class="fas fa-times"></i></span>&ensp;
                                                         Tidak Ada Aksi
                                                     </button>
                                                 @else
-                                                    <a href="{{ route('pegawai.edit', $item->id) }}" class="btn btn-outline-info btn-sm">
-                                                        Edit Data
+                                                    <a href="{{ route('pegawai.edit', $item->id) }}" class="btn btn-outline-primary btn-sm">
+                                                        <span><i class="far fa-edit"></i></span>
                                                     </a>
                                                     <button type="submit" class="btn btn-outline-danger btn-sm">
-                                                        Hapus Data
+                                                        <span><i class="fas fa-trash-alt"></i></span>
+                                                    </button>
+                                                    <button type="button" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#detailModal" wire:click="showData{{ $item->id }}">
+                                                        <span><i class="fas fa-eye"></i></span>
                                                     </button>
                                                 @endif
                                             </form>
@@ -60,7 +68,9 @@
                                     </td>
                                 </tr>
                             @empty
-                                
+                                <tr>
+                                    <td colspan="7" class="text-danger text-italic">Belum Ada Data Pegawai !</td>
+                                </tr>
                             @endforelse
                         </tbody>
                     </table>
@@ -141,4 +151,6 @@
             </div>
         </div>
     </div>
+
+    @livewire('pegawai')
 @endsection

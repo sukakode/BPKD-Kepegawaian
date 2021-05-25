@@ -8,8 +8,14 @@
                 Data Jabatan
             </h4>
             <div class="card-tools">
-                <button type="button" data-toggle="modal" data-target="#jabatanTrashedModal" class="btn btn-danger btn-xs">Data Terhapus</button>
-                <a href="{{ route('jabatan.create') }}" class="btn btn-success btn-xs">Tambah Data Jabatan</a>
+                <button type="button" data-toggle="modal" data-target="#jabatanTrashedModal" class="btn btn-danger btn-xs">
+                    <span><i class="fas fa-trash"></i></span>&ensp;
+                    Data Terhapus
+                </button>
+                <a href="{{ route('jabatan.create') }}" class="btn btn-success btn-xs">
+                    <span><i class="fas fa-plus"></i></span>&ensp;
+                    Tambah Data Jabatan
+                </a>
             </div>
         </div>
         <div class="card-body p-0">
@@ -37,15 +43,16 @@
                                             @method('DELETE')
 
                                             @if ($item->nama == 'Admin')
-                                                <button type="submit" class="btn btn-secondary btn-sm" disabled>
+                                                <button type="button" class="btn btn-secondary btn-sm">
+                                                    <span><i class="fas fa-times"></i></span>&ensp;
                                                     Tidak Ada Aksi
                                                 </button>
                                             @else
                                                 <a href="{{ route('jabatan.edit', $item->id) }}" class="btn btn-outline-info btn-sm">
-                                                    Edit Data
+                                                    <span><i class="far fa-edit"></i></span>
                                                 </a>
                                                 <button type="submit" class="btn btn-outline-danger btn-sm">
-                                                    Hapus Data
+                                                    <span><i class="far fa-trash-alt"></i></span>
                                                 </button>
                                             @endif
                                         </form>
