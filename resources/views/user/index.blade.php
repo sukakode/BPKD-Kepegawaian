@@ -9,9 +9,9 @@
                 </h4>
                 <div class="card-tools">
                     <button type="button" data-toggle="modal" data-target="#userTrashedModal" class="btn btn-danger btn-xs">
-                       Data Terhapus
+                        <span><i class="fas fa-trash-alt"></i></span>&ensp;
+                        Data Terhapus
                     </button>
-                    {{-- <a href="{{ route('user.create') }}" class="btn btn-success btn-xs">Tambah Data User</a> --}}
                 </div>
             </div>
             <div class="card-body p-0">
@@ -40,10 +40,12 @@
                                             @method('DELETE')
 
                                             <a href="{{ route('pegawai.edit', $item->id) }}" class="btn btn-outline-info btn-sm">
+                                                <span><i class="fas fa-edit"></i></span>&ensp;
                                                 Edit Data
                                             </a>
 
                                             <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                <span><i class="fas fa-trash"></i></span>&ensp;
                                                 Hapus Data
                                             </button>
                                         </form>

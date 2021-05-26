@@ -35,24 +35,24 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->nama }}</td>
-                                <td>{{ $item->deskripsi }}</td>
+                                <td>{{ $item->deskripsi ? '':'Tidak ada Deskripsi !' }}</td>
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <form action="{{ route('jabatan.destroy', $item->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
 
-                                            @if ($item->nama == 'Admin')
+                                            @if ($item->nama == 'Administrator')
                                                 <button type="button" class="btn btn-secondary btn-sm">
-                                                    <span><i class="fas fa-times"></i></span>&ensp;
-                                                    Tidak Ada Aksi
+                                                    <span><i class="fas fa-times"></i>&ensp; Tidak Ada Aksi</span>
+                                                    
                                                 </button>
                                             @else
                                                 <a href="{{ route('jabatan.edit', $item->id) }}" class="btn btn-outline-info btn-sm">
-                                                    <span><i class="far fa-edit"></i></span>
+                                                    <span><i class="far fa-edit"></i>&ensp; Edit</span>
                                                 </a>
                                                 <button type="submit" class="btn btn-outline-danger btn-sm">
-                                                    <span><i class="far fa-trash-alt"></i></span>
+                                                    <span><i class="far fa-trash-alt"></i>&ensp; Hapus</span>
                                                 </button>
                                             @endif
                                         </form>
@@ -99,7 +99,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->nama }}</td>
-                                        <td>{{ $item->deskripsi }}</td>
+                                        <td>{{ $item->deskripsi ? '':'Tidak ada Deskripsi !' }}</td>
                                         <td class="text-center">
                                             <div class="btn-group">
                                                 <form action="{{ route('jabatan.restore', $item->id) }}" method="POST">

@@ -16,20 +16,20 @@ class JabatanTableSeeder extends Seeder
     {
         $data = [
             [
-                'nama' => 'Admin',
-                'deskripsi' => ''
+                'nama' => 'Administrator',
+                'deskripsi' => NULL
             ],
             [
                 'nama' => 'Staff',
-                'deskripsi' => ''
+                'deskripsi' => NULL
             ],
             [
-                'nama' => 'FO',
-                'deskripsi' => ''
+                'nama' => 'Front Office',
+                'deskripsi' => NULL
             ],
             [
                 'nama' => 'Operator',
-                'deskripsi' => ''
+                'deskripsi' => NULL
             ],
         ];
 

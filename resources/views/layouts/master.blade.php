@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <link rel="stylesheet" href="{{ asset('assets') }}/plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="{{ asset('assets') }}/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="{{ asset('assets') }}/plugins/toastr/toastr.css">
   
   @livewireStyles
   @yield('css')
@@ -44,7 +45,8 @@
       </div> 
 
       <nav class="mt-2 ">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="true">
+        {{-- <ul class="nav nav-pills nav-sidebar flex-column" id="vert-tabs-tab" role="tablist" aria-orientation="vertical" data-widget="treeview" data-accordion="false"> --}}
           @include('layouts.sidebar') 
         </ul>
       </nav>
@@ -95,9 +97,27 @@
 <script src="{{ asset('assets') }}/plugins/jquery/jquery.min.js"></script>
 <script src="{{ asset('assets') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('assets') }}/dist/js/adminlte.min.js"></script>
+<script src="{{ asset('assets') }}/plugins/toastr/toastr.min.js"></script>
+<script>
+  if(Session::has('message'))
+    var type = "{{ Session::get('alert-type', 'info') }}";
+    switch(type){
+        case 'info':
+            toastr.info("{{ Session::get('message') }}");
+            break;
 
-<script type="text/javascript">
-  document.write(new Date(),getFullyear())
+        case 'warning':
+            toastr.warning("{{ Session::get('message') }}");
+            break;
+
+        case 'success':
+            toastr.success("{{ Session::get('message') }}");
+            break;
+
+        case 'error':
+            toastr.error("{{ Session::get('message') }}");
+            break;
+    }
 </script>
 
 @livewireScripts
