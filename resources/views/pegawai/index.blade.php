@@ -59,7 +59,7 @@
                                                     <button type="submit" class="btn btn-outline-danger btn-sm">
                                                         <span><i class="fas fa-trash-alt"></i></span>
                                                     </button>
-                                                    <button type="button" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#detailModal" wire:click="showData{{ $item->id }}">
+                                                    <button type="button" class="btn btn-outline-info btn-sm buttonDetail" data-target="#detailModal" data-toggle="modal" data-id="{{ $item->id }}">
                                                         <span><i class="fas fa-eye"></i></span>
                                                     </button>
                                                 @endif
@@ -152,5 +152,16 @@
         </div>
     </div>
 
-    @livewire('pegawai')
+    @livewire('pegawai.detail-pegawai')
+@endsection
+
+@section('script')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.buttonDetail').on('click', function () {
+                var id = $(this).data('id');
+                Livewire.emit('show-data', id);
+            });
+        });
+    </script>
 @endsection

@@ -16,7 +16,7 @@ class MainController extends Controller
 
     public function index()
     {
-        $pegawai = Pegawai::orderBy('created_at', 'DESC')->get();
+        $pegawai = Pegawai::orderBy('created_at', 'DESC')->withTrashed()->get();
         $jabatan = Jabatan::orderBy('created_at', 'DESC')->get();
         
         return view('main', compact('pegawai','jabatan'));

@@ -1,7 +1,7 @@
 @extends('layouts.master')  
 
 @section('content')
-<div class="col-md-6">
+<div class="col-md-12">
   <div class="card card-outline card-primary">
     <div class="card-header">
       <div class="card-title">Data Pegawai</div>
@@ -13,7 +13,11 @@
             <tr>
               <th>NO.</th>
               <th>NAMA</th>
-              <th>JABATAN USER</th>
+              <th>E-MAIL</th>
+              <th>GOLONGAN</th>
+              <th>JABATAN</th>
+              <th>TAHUN DIANGKAT</th>
+              <th>TAHUN MENJABAT</th>
               <th>STATUS</th>
             </tr>
           </thead>
@@ -22,10 +26,12 @@
                 <tr>
                   <td>{{ $loop->iteration }}</td>
                   <td>{{ $item->nama }}</td>
+                  <td>{{ empty($item->user->email) ? 'User Tidak Memiliki Hak Login':$item->user->email }}</td>
+                  <td>{{ $item->golongan }}</td>
                   <td>{{ $item->jabatan->nama }}</td>
-                  @if ($item->deleted_at ? '':'Aktif')
-                    <td>Aktif</td>
-                  @endif
+                  <td>{{ $item->tahun_diangkat }}</td>
+                  <td>{{ $item->tahun_menjabat }}</td>
+                  <td>{{ $item->deleted_at == null ? 'Aktif':'Tidak Aktif' }}</td>
                 </tr>
             @empty
                 <tr>
@@ -38,7 +44,7 @@
     </div>
   </div>
 </div>
-<div class="col-md-6">
+{{-- <div class="col-md-5">
   <div class="card card-outline card-primary">
     <div class="card-header">
       <div class="card-title">Data Jabatan</div>
@@ -58,7 +64,7 @@
               <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $item->nama }}</td>
-                <td>{{ $item->deskripsi }}</td>
+                <td>{{ $item->deskripsi ? '':'Tidak Ada Deskripsi !'}}</td>
               </tr>
             @empty
                 
@@ -68,5 +74,5 @@
       </div>
     </div>
   </div>
-</div>
+</div> --}}
 @endsection
