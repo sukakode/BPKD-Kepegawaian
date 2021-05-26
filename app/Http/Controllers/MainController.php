@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jabatan;
+use App\Models\Pegawai;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -13,6 +16,9 @@ class MainController extends Controller
 
     public function index()
     {
-        return view('main');
+        $pegawai = Pegawai::orderBy('created_at', 'DESC')->get();
+        $jabatan = Jabatan::orderBy('created_at', 'DESC')->get();
+        
+        return view('main', compact('pegawai','jabatan'));
     }
 }
