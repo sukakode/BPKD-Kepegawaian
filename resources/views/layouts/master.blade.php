@@ -98,27 +98,29 @@
 <script src="{{ asset('assets') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('assets') }}/dist/js/adminlte.min.js"></script>
 <script src="{{ asset('assets') }}/plugins/toastr/toastr.min.js"></script>
-<script>
-  if(Session::has('message'))
-    var type = "{{ Session::get('alert-type', 'info') }}";
-    switch(type){
-        case 'info':
-            toastr.info("{{ Session::get('message') }}");
-            break;
+@if (Session::has('success'))
+  <script>
+    toastr.success("{{ Session::get('success') }}");
+  </script>
+@endif
 
-        case 'warning':
-            toastr.warning("{{ Session::get('message') }}");
-            break;
+@if (Session::has('error'))
+  <script>
+    toastr.error("{{ Session::get('error') }}");
+  </script>
+@endif
 
-        case 'success':
-            toastr.success("{{ Session::get('message') }}");
-            break;
+@if (Session::has('info'))
+  <script>
+    toastr.info("{{ Session::get('info') }}");
+  </script>
+@endif
 
-        case 'error':
-            toastr.error("{{ Session::get('message') }}");
-            break;
-    }
-</script>
+@if (Session::has('warning'))
+  <script>
+    toastr.warning("{{ Session::get('warning') }}");
+  </script>
+@endif
 
 @livewireScripts
 @yield('script')

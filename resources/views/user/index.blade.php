@@ -37,17 +37,17 @@
                                     <div class="btn-group">
                                         <form action="{{ route('pegawai.destroy', $item->id) }}" method="POST">
                                             @csrf
-                                            @method('DELETE')
+                                            {{-- @method('DELETE') --}}
 
                                             <a href="{{ route('pegawai.edit', $item->id) }}" class="btn btn-outline-info btn-sm">
                                                 <span><i class="fas fa-edit"></i></span>&ensp;
                                                 Edit Data
                                             </a>
 
-                                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                            {{-- <button type="submit" class="btn btn-outline-danger btn-sm">
                                                 <span><i class="fas fa-trash"></i></span>&ensp;
                                                 Hapus Data
-                                            </button>
+                                            </button> --}}
                                         </form>
                                     </div>
                                 </td>

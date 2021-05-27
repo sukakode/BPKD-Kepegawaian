@@ -1,6 +1,7 @@
 <li class="nav-item">
     <a href="{{ route('main') }}" class="nav-link {{ Request::is('home*') ? 'active' : '' }}">
-        <span><i class="nav-icon fas fa-home"></i>&ensp; Dashboard</span>
+        <span><i class="nav-icon fas fa-home"></i></span>&ensp;
+        <p>Dashboard</p>
     </a>
 </li>
 <hr style="display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0;">

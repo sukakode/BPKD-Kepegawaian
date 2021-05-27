@@ -33,3 +33,4 @@ Route::put('/pegawai/{id}/restore', [$loc . PegawaiController::class, 'restore']
 Route::delete('/jabatan/{id}/force', [$loc . JabatanController::class, 'forceDelete'])->name('jabatan.force');
 Route::delete('/pegawai/{id}/force', [$loc . PegawaiController::class, 'forceDelete'])->name('pegawai.force');
 
+
